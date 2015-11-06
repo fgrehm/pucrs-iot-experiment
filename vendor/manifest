@@ -6,6 +6,13 @@
 			"repository": "https://github.com/tarm/serial",
 			"revision": "d38134099a78260194e3ef85781507289084ebd8",
 			"branch": "master"
+		},
+		{
+			"importpath": "golang.org/x/net/websocket",
+			"repository": "https://go.googlesource.com/net",
+			"revision": "b4e17d61b15679caf2335da776c614169a1b4643",
+			"branch": "master",
+			"path": "/websocket"
 		}
 	]
 }
