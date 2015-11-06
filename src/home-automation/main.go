@@ -1,10 +1,19 @@
 package main
 
 import (
-  "os"
+	"fmt"
+	"net/http"
+	"os"
 )
 
+var hostname string
+
+func handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "<h1>Hello from `%s`!</h1>", hostname)
+}
+
 func main() {
-  hostName, _ := os.Hostname()
-  println("Hello from", hostName)
+	hostname, _ = os.Hostname()
+	http.HandleFunc("/", handler)
+	http.ListenAndServe(":8080", nil)
 }
