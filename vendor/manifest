@@ -1,0 +1,11 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/tarm/serial",
+			"repository": "https://github.com/tarm/serial",
+			"revision": "d38134099a78260194e3ef85781507289084ebd8",
+			"branch": "master"
+		}
+	]
+}
