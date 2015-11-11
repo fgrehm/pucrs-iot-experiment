@@ -133,6 +133,12 @@
 			"revision": "b4e17d61b15679caf2335da776c614169a1b4643",
 			"branch": "master",
 			"path": "/websocket"
+		},
+		{
+			"importpath": "gopkg.in/fsnotify.v1",
+			"repository": "https://gopkg.in/fsnotify.v1",
+			"revision": "7be54206639f256967dd82fa767397ba5f8f48f5",
+			"branch": "master"
 		}
 	]
 }
