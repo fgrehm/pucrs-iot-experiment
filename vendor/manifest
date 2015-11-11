@@ -20,6 +20,12 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/elazarl/go-bindata-assetfs",
+			"repository": "https://github.com/elazarl/go-bindata-assetfs",
+			"revision": "d5cac425555ca5cf00694df246e04f05e6a55150",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/facebookgo/clock",
 			"repository": "https://github.com/facebookgo/clock",
 			"revision": "600d898af40aa09a7a93ecb9265d87b0504b6f03",
