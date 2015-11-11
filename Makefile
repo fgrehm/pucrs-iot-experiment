@@ -16,8 +16,8 @@ serve: docker.build build/app
 	docker run -ti --rm -p 35729:35729 -p 8080:8080 -v `pwd`/build:/code $(IMAGE) ./app
 
 .PHONY: deploy.rpi
-deploy.rpi:  build/app-arm
-	scp bin/home-automation-linux-arm pi@10.32.143.201:~/home-automation
+deploy.rpi: build/app-arm
+	scp $< pi@10.32.143.201:~/buttons-app
 
 .PHONY: build
 build: build/app
