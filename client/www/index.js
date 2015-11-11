@@ -1,6 +1,8 @@
 require('./lib/ionic/js/ionic.bundle.min.js');
+require('./lib/ionic-material/dist/ionic.material.min.js')
+require('./lib/ng-websocket/ng-websocket.js');
 
-angular.module('app', ['ionic'])
+angular.module('app', ['ionic', 'ngWebsocket', 'ionic-material'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -16,19 +18,59 @@ angular.module('app', ['ionic'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
+.controller('MainCtrl', function($scope, $websocket, $http, $ionicLoading) {
+  $scope.buttons = [0, 0, 0];
+  $scope.server = document.location.host;
+  $scope.connect = function connect() {
+    $websocket
+      .$new({
+        url: "ws://" + $scope.server + "/ws",
+        reconnect: false
+      })
+      .$on('$open', function onOpen() {
+        $scope.$apply(function() { $scope.$emit('connected'); });
+      })
+      .$on('processing', function onProcessingClick(data) {
+        $scope.$apply(function() { $scope.$emit('processing'); });
+      })
+      .$on('click', function onClick(data) {
+        $scope.$apply(function() {
+          $scope.buttons[data.button] = data.count;
+          $scope.$emit('done');
+        });
+      })
+      .$on('$close', function onClose() {
+        $scope.$apply(function() {
+          $scope.isConnected = false;
+          $scope.$emit('done');
+        });
+      });
+  }
 
-  .state('tab.home', {
-    url: '/',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/main.html',
-        controller: 'MainCtrl'
+  $scope.clickOn = function clickOn(index) {
+    $scope.$emit('processing');
+    $http.post('http://' + $scope.server + '/click/' + index);
+  };
+
+  $scope.$on('connected', function() {
+    $http.get('http://' + $scope.server + '/clicks').then(function(response) {
+      for (i = 0; i < response.data.length; i++) {
+        $scope.buttons[i] = response.data[i];
       }
-    }
+      $scope.isConnected = true;
+    }, function() {
+      alert("ERROR!");
+    });
   });
-
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/');
-});
+  $scope.$on('processing', function(msg) {
+    if ($scope.loading) return;
+    $scope.loading = $ionicLoading.show({
+      template: 'Processing click...',
+      scope:    $scope,
+    });
+  });
+  $scope.$on('done', function() {
+    $ionicLoading.hide($scope.loading);
+    delete($scope.loading);
+  });
+})

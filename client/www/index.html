@@ -4,26 +4,40 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-
+    <link href='https://fonts.googleapis.com/css?family=RobotoDraft:400,500,700,400italic' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <link href="css/index.css" rel="stylesheet">
   </head>
-  <body ng-app="app">
+  <body ng-app="app" ng-controller="MainCtrl">
     <ion-pane >paneinde
       <ion-header-bar class="bar-positive">
         <h1 class="title">APP</h1>
       </ion-header-bar>
       <ion-content>
-        <div id="buttons" class="button-bar">
-          <a class="button">Button 1</a>
-          <a class="button">Button 2</a>
-          <a class="button">Button 3</a>
-        </div>
-        <div id="clicks-count" class="button-bar">
-          <a class="button disabled">0 clicks</a>
-          <a class="button disabled">0 clicks</a>
-          <a class="button disabled">0 clicks</a>
+        <div class="list">
+          <div class="item item-input-inset">
+            <label class="item-input-wrapper">
+              <input type="text" placeholder="Server" ng-disabled="isConnected" ng-model="server">
+            </label>
+            <button class="button button-small button-positive" ng-disabled="isConnected" ng-click="connect()">
+              Connect
+            </button>
+          </div>
+          <div class="item">
+            <div id="buttons" class="button-bar" ng-if="isConnected">
+              <a class="button button-calm" ng-click="clickOn(0)">Button 1</a>
+              <a class="button button-assertive" ng-click="clickOn(1)">Button 2</a>
+              <a class="button button-dark" ng-click="clickOn(2)">Button 3</a>
+            </div>
+          </div>
+          <div class="item">
+            <div id="clicks-count" class="button-bar" ng-if="isConnected">
+              <a class="button disabled">{{ buttons[0] }} clicks</a>
+              <a class="button disabled">{{ buttons[1] }} clicks</a>
+              <a class="button disabled">{{ buttons[2] }} clicks</a>
+            </div>
+          </div>
         </div>
       </ion-content>
     </ion-pane>

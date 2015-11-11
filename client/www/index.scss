@@ -1,4 +1,15 @@
 @import 'scss/ionic';
+@import 'scss/material';
+
 #buttons {
-  margin-top: 20px;
+  margin-top: 1em;
+}
+
+#clicks-count {
+  margin-top: 1em;
+  .button {
+    font-weight: bold;
+    opacity: 1;
+    color: black;
+  }
 }
