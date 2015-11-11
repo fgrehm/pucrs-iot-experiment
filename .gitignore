@@ -28,4 +28,4 @@ bin/
 pkg/
 
 build/
-src/cmd/app/assets.go
+src/buttons/assets.go

@@ -1,8 +1,8 @@
 IMAGE = fgrehm/rpi-arduino-buttons
-TARGET = app
+TARGET = buttons
 
 source_go = $(shell find -L "src/" -type f -name '*.go')
-bindata = src/cmd/app/assets.go
+bindata = src/$(TARGET)/assets.go
 
 default: build
 
@@ -12,15 +12,15 @@ hack: docker.build
 	docker run -ti --rm -v `pwd`:/code -v `pwd`/.docker-dev/gradle:/home/developer/.gradle --privileged $(IMAGE)
 
 .PHONY: serve
-serve: docker.build build/app
-	docker run -ti --rm -p 35729:35729 -p 8080:8080 -v `pwd`/build:/code $(IMAGE) ./app
+serve: docker.build build/$(TARGET)
+	docker run -ti --rm -p 35729:35729 -p 8080:8080 -v `pwd`/build:/code $(IMAGE) ./$(TARGET)
 
 .PHONY: deploy.rpi
-deploy.rpi: build/app-arm
+deploy.rpi: build/$(TARGET)-arm
 	scp $< pi@10.32.143.201:~/buttons-app
 
 .PHONY: build
-build: build/app
+build: build/$(TARGET)
 
 .PHONY: build.client
 build.client:
@@ -41,13 +41,13 @@ $(bindata): docker.build build.client
 	docker run -ti --rm -v `pwd`:/code $(IMAGE) sh -c 'cd client && go-bindata-assetfs -nomemcopy www/...'
 	mv client/bindata_assetfs.go $(@)
 
-build/app: $(source_go) $(bindata)
-	docker run -ti --rm -v `pwd`:/code $(IMAGE) gb build cmd/app
-	mv bin/app $(@)
+build/$(TARGET): $(source_go) $(bindata)
+	docker run -ti --rm -v `pwd`:/code $(IMAGE) gb build $(TARGET)
+	mv bin/$(TARGET) $(@)
 
-build/app-arm: $(source_go)
-	docker run -ti --rm -e GOOS=linux -e GOARCH=arm -v `pwd`:/code $(IMAGE) gb build cmd/app
-	mv bin/app-linux-arm $(@)
+build/$(TARGET)-arm: $(source_go)
+	docker run -ti --rm -e GOOS=linux -e GOARCH=arm -v `pwd`:/code $(IMAGE) gb build $(TARGET)
+	mv bin/$(TARGET)-linux-arm $(@)
 
 build/android.apk:
 	@mkdir -p .docker-dev/gradle

@@ -34,4 +34,4 @@ client/node_modules/
 client/platforms/
 client/www/
 build/
-src/cmd/app/assets.go
+src/buttons/assets.go
