@@ -20,11 +20,12 @@ angular.module('app', ['ionic', 'ngWebsocket', 'ionic-material'])
 
 .controller('MainCtrl', function($scope, $websocket, $http, $ionicLoading) {
   $scope.buttons = [0, 0, 0];
-  $scope.server = document.location.host;
-  $scope.connect = function connect() {
+  $scope.host = document.location.host;
+  $scope.connect = function connect(host) {
+    $scope.host = host;
     $websocket
       .$new({
-        url: "ws://" + $scope.server + "/ws",
+        url: "ws://" + host + "/ws",
         reconnect: false
       })
       .$on('$open', function onOpen() {
@@ -49,11 +50,11 @@ angular.module('app', ['ionic', 'ngWebsocket', 'ionic-material'])
 
   $scope.clickOn = function clickOn(index) {
     $scope.$emit('processing');
-    $http.post('http://' + $scope.server + '/click/' + index);
+    $http.post('http://' + $scope.host + '/click/' + index);
   };
 
   $scope.$on('connected', function() {
-    $http.get('http://' + $scope.server + '/clicks').then(function(response) {
+    $http.get('http://' + $scope.host + '/clicks').then(function(response) {
       for (i = 0; i < response.data.length; i++) {
         $scope.buttons[i] = response.data[i];
       }

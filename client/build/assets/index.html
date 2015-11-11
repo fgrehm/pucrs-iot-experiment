@@ -23,9 +23,9 @@
         <div class="list">
           <div class="item item-input-inset">
             <label class="item-input-wrapper">
-              <input type="text" placeholder="Host" ng-model="host">
+              <input type="text" placeholder="Server" ng-disabled="isConnected" ng-model="server">
             </label>
-            <button class="button button-small button-positive" ng-disabled="isConnected" ng-click="connect(host)">
+            <button class="button button-small button-positive" ng-disabled="isConnected" ng-click="connect()">
               Connect
             </button>
           </div>
