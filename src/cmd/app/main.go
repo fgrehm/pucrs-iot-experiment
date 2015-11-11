@@ -29,11 +29,15 @@ func main() {
 	e.Use(mw.Recover())
 	e.StripTrailingSlash()
 
-	// TODO: use go-bindata-assetfs
-	e.Static("/", "assets")
+	assetHandler := http.FileServer(assetFS())
+
 	e.Get("/clicks", buttonsStateHandler)
 	e.Post("/click/:button", buttonClicker)
 	e.WebSocket("/ws", socketHandler)
+	e.Get("/*", func(c *echo.Context) error {
+		assetHandler.ServeHTTP(c.Response().Writer(), c.Request())
+		return nil
+	})
 
 	// Start the "message hub"
 	go hub.Run()

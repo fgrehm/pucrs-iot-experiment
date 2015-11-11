@@ -1,27 +1,54 @@
-IMAGE = fgrehm/alpine-go-web:1.5.1
-TARGET = home-automation
+IMAGE = fgrehm/rpi-arduino-buttons
+TARGET = app
 
-source_go = $(shell find -L $(source) ! -path "src/*" -type f -name '*.go')
+source_go = $(shell find -L "src/" -type f -name '*.go')
+bindata = src/cmd/app/assets.go
 
 default: build
 
 .PHONY: hack
-hack:
-	docker run -ti --rm -v `pwd`:/code $(IMAGE)
+hack: docker.build
+	@mkdir -p .docker-dev/gradle
+	docker run -ti --rm -v `pwd`:/code -v `pwd`/.docker-dev/gradle:/home/developer/.gradle --privileged $(IMAGE)
 
-.PHONY: deploy
-deploy: bin/home-automation-linux-arm
+.PHONY: serve
+serve: docker.build build/app
+	docker run -ti --rm -p 35729:35729 -p 8080:8080 -v `pwd`/build:/code $(IMAGE) ./app
+
+.PHONY: deploy.rpi
+deploy.rpi:  build/app-arm
 	scp bin/home-automation-linux-arm pi@10.32.143.201:~/home-automation
 
 .PHONY: build
-build: bin/home-automation
+build: build/app
 
-bin/home-automation: $(source_go)
-	docker run -ti --rm -v `pwd`:/code $(IMAGE) gb build
+.PHONY: build.client
+build.client:
+	docker run -ti --rm -v `pwd`:/code $(IMAGE) sh -c 'cd client && make'
 
-bin/home-automation-linux-%: $(source_go)
-	docker run -ti --rm -e GOOS=linux -e GOARCH=$(*) -v `pwd`:/code $(IMAGE) gb build
+.PHONY: build.mobile
+build.mobile: build/android.apk
+
+.PHONY: docker.build
+docker.build:
+	docker build -t $(IMAGE) .
 
 .PHONY: clean
 clean:
-	rm -rf bin/*
+	rm -rf bin/* build/*
+
+$(bindata): docker.build build.client
+	docker run -ti --rm -v `pwd`:/code $(IMAGE) sh -c 'cd client && go-bindata-assetfs -nomemcopy www/...'
+	mv client/bindata_assetfs.go $(@)
+
+build/app: $(source_go) $(bindata)
+	docker run -ti --rm -v `pwd`:/code $(IMAGE) gb build cmd/app
+	mv bin/app $(@)
+
+build/app-arm: $(source_go)
+	docker run -ti --rm -e GOOS=linux -e GOARCH=arm -v `pwd`:/code $(IMAGE) gb build cmd/app
+	mv bin/app-linux-arm $(@)
+
+build/android.apk:
+	@mkdir -p .docker-dev/gradle
+	docker run -ti --rm -v `pwd`:/code -v `pwd`/.docker-dev/gradle:/home/developer/.gradle $(IMAGE) sh -c 'cd client && make build.android'
