@@ -5,29 +5,26 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
-
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
-
-    <!-- your app's js -->
-    <script src="js/app.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <link href="css/index.css" rel="stylesheet">
   </head>
-  <body ng-app="starter">
-
-    <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Ionic Blank Starter</h1>
+  <body ng-app="app">
+    <ion-pane >paneinde
+      <ion-header-bar class="bar-positive">
+        <h1 class="title">APP</h1>
       </ion-header-bar>
       <ion-content>
+        <div id="buttons" class="button-bar">
+          <a class="button">Button 1</a>
+          <a class="button">Button 2</a>
+          <a class="button">Button 3</a>
+        </div>
+        <div id="clicks-count" class="button-bar">
+          <a class="button disabled">0 clicks</a>
+          <a class="button disabled">0 clicks</a>
+          <a class="button disabled">0 clicks</a>
+        </div>
       </ion-content>
     </ion-pane>
   </body>

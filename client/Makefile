@@ -8,7 +8,7 @@ source_js   = $(shell find $(source) ! -path "$(bower)/*" -type f -name '*.js')
 source_css  = $(shell find $(source) ! -path "$(bower)/*" -type f -name '*.scss')
 source_rest = $(shell find $(source) ! -path "$(bower)/*" ! -name '*.js' ! -name '*.scss' -type f)
 
-output     := dist
+output     := ../build/assets
 output_css  = $(output)/css/index.css
 output_js   = $(output)/js/index.js
 output_rest = $(patsubst $(source)/%,$(output)/%,$(source_rest))
