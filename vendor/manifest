@@ -2,10 +2,124 @@
 	"version": 0,
 	"dependencies": [
 		{
+			"importpath": "github.com/GeertJohan/go.rice",
+			"repository": "https://github.com/GeertJohan/go.rice",
+			"revision": "ada95a01c963696fb73320ee662195af68be81ae",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/daaku/go.zipexe",
+			"repository": "https://github.com/daaku/go.zipexe",
+			"revision": "a5fe2436ffcb3236e175e5149162b41cd28bd27d",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/dgrijalva/jwt-go",
+			"repository": "https://github.com/dgrijalva/jwt-go",
+			"revision": "52c68d1293c6de749708778de956009490672f6e",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/facebookgo/clock",
+			"repository": "https://github.com/facebookgo/clock",
+			"revision": "600d898af40aa09a7a93ecb9265d87b0504b6f03",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/facebookgo/grace/gracehttp",
+			"repository": "https://github.com/facebookgo/grace",
+			"revision": "053ab5d25436faedf3fe76fbf3da797c8c27c659",
+			"branch": "master",
+			"path": "/gracehttp"
+		},
+		{
+			"importpath": "github.com/facebookgo/grace/gracenet",
+			"repository": "https://github.com/facebookgo/grace",
+			"revision": "053ab5d25436faedf3fe76fbf3da797c8c27c659",
+			"branch": "master",
+			"path": "/gracenet"
+		},
+		{
+			"importpath": "github.com/facebookgo/httpdown",
+			"repository": "https://github.com/facebookgo/httpdown",
+			"revision": "1fa03998d20119dfe4ef73f56a638d83048052e2",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/facebookgo/stats",
+			"repository": "https://github.com/facebookgo/stats",
+			"revision": "1b76add642e42c6ffba7211ad7b3939ce654526e",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/kardianos/osext",
+			"repository": "https://github.com/kardianos/osext",
+			"revision": "6e7f843663477789fac7c02def0d0909e969b4e5",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/labstack/echo",
+			"repository": "https://github.com/labstack/echo",
+			"revision": "e48ebd342145c453437176624ea05424585473ce",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/labstack/gommon/color",
+			"repository": "https://github.com/labstack/gommon",
+			"revision": "3c613419957bbd5afea3fc87bbc0f9f2dca19196",
+			"branch": "master",
+			"path": "/color"
+		},
+		{
+			"importpath": "github.com/rs/cors",
+			"repository": "https://github.com/rs/cors",
+			"revision": "ceb1fbf238d7711a11a86a2622d0b85305348aeb",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/rs/xhandler",
+			"repository": "https://github.com/rs/xhandler",
+			"revision": "8431b30f293907f6613667c03df1f089e0fb8741",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/tarm/serial",
 			"repository": "https://github.com/tarm/serial",
 			"revision": "d38134099a78260194e3ef85781507289084ebd8",
 			"branch": "master"
+		},
+		{
+			"importpath": "github.com/thoas/stats",
+			"repository": "https://github.com/thoas/stats",
+			"revision": "54ed61c2b47e263ae2f01b86837b0c4bd1da28e8",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/tylerb/graceful",
+			"repository": "https://github.com/tylerb/graceful",
+			"revision": "48afeb21e2fcbcff0f30bd5ad6b97747b0fae38e",
+			"branch": "master"
+		},
+		{
+			"importpath": "golang.org/x/net/context",
+			"repository": "https://go.googlesource.com/net",
+			"revision": "042ba42fa6633b34205efc66ba5719cd3afd8d38",
+			"branch": "master",
+			"path": "/context"
+		},
+		{
+			"importpath": "golang.org/x/net/http2",
+			"repository": "https://go.googlesource.com/net",
+			"revision": "042ba42fa6633b34205efc66ba5719cd3afd8d38",
+			"branch": "master",
+			"path": "/http2"
+		},
+		{
+			"importpath": "golang.org/x/net/netutil",
+			"repository": "https://go.googlesource.com/net",
+			"revision": "042ba42fa6633b34205efc66ba5719cd3afd8d38",
+			"branch": "master",
+			"path": "/netutil"
 		},
 		{
 			"importpath": "golang.org/x/net/websocket",
