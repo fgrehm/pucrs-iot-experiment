@@ -3,20 +3,19 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/labstack/echo"
 	mw "github.com/labstack/echo/middleware"
 )
 
 var (
-	clicks = map[string]int{"0": 0, "1": 0, "2": 0}
-	hub    = &Hub{
+	hub = &Hub{
 		Broadcast:   make(chan string),
 		Register:    make(chan *Connection),
 		Unregister:  make(chan *Connection),
 		Connections: make(map[*Connection]bool),
 	}
+	btns Buttons
 )
 
 func main() {
@@ -42,13 +41,20 @@ func main() {
 	// Start the "message hub"
 	go hub.Run()
 
+	// Detect clicks on buttons
+	btns = newButtons("gpio", hub)
+	go btns.Run()
+
+	// Control the leds based on clicks
+	newLeds(btns, hub)
+
 	// Start server
 	fmt.Println("Starting server on port " + port)
 	e.Run(":" + port)
 }
 
 func buttonsStateHandler(c *echo.Context) error {
-	response := []int{clicks["0"], clicks["1"], clicks["2"]}
+	response := btns.Clicks()
 	return c.JSON(http.StatusOK, response)
 }
 
@@ -65,11 +71,6 @@ func socketHandler(c *echo.Context) error {
 }
 
 func buttonClicker(c *echo.Context) error {
-	go func() {
-		hub.Broadcast <- fmt.Sprintf(`{"event":"processing","data":{"button":%s}}`, c.Param("button"))
-		time.Sleep(1500 * time.Millisecond)
-		clicks[c.Param("button")] += 1
-		hub.Broadcast <- fmt.Sprintf(`{"event":"click","data":{"button":%s,"count":%d}}`, c.Param("button"), clicks[c.Param("button")])
-	}()
+	go btns.ClickedOn(c.Param("button"))
 	return c.NoContent(http.StatusCreated)
 }
