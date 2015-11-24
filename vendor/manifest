@@ -8,6 +8,12 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/codegangsta/cli",
+			"repository": "https://github.com/codegangsta/cli",
+			"revision": "0302d3914d2a6ad61404584cdae6e6dbc9c03599",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/daaku/go.zipexe",
 			"repository": "https://github.com/daaku/go.zipexe",
 			"revision": "a5fe2436ffcb3236e175e5149162b41cd28bd27d",
@@ -58,9 +64,21 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/golang/glog",
+			"repository": "https://github.com/golang/glog",
+			"revision": "fca8c8854093a154ff1eb580aae10276ad6b1b5f",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/kardianos/osext",
 			"repository": "https://github.com/kardianos/osext",
 			"revision": "6e7f843663477789fac7c02def0d0909e969b4e5",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/kidoman/embd",
+			"repository": "https://github.com/kidoman/embd",
+			"revision": "5065e49386ae53e601ef7a300934a37cc21fd3b6",
 			"branch": "master"
 		},
 		{
