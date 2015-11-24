@@ -20,7 +20,7 @@ angular.module('app', ['ionic', 'ngWebsocket', 'ionic-material'])
 
 .controller('MainCtrl', function($scope, $websocket, $http, $ionicLoading) {
   $scope.buttons = [0, 0, 0];
-  $scope.host = document.location.host;
+  $scope.host = document.location.host || '10.32.143.102:8080';
   $scope.connect = function connect(host) {
     $scope.host = host;
     $websocket

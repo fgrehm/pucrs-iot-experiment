@@ -1,11 +1,14 @@
 package main
 
 import (
-	"fmt"
+	"log"
+	"time"
+
 	"net/http"
 
 	"github.com/labstack/echo"
 	mw "github.com/labstack/echo/middleware"
+	"github.com/tylerb/graceful"
 )
 
 var (
@@ -42,19 +45,25 @@ func main() {
 	go hub.Run()
 
 	// Detect clicks on buttons
-	btns = newButtons("gpio", hub)
-	go btns.Run()
+	btns = newButtons()
+	defer btns.Close()
+	btns.Run()
 
 	// Control the leds based on clicks
 	newLeds(btns, hub)
 
 	// Start server
-	fmt.Println("Starting server on port " + port)
-	e.Run(":" + port)
+	log.Println("Starting server on port " + port)
+	graceful.ListenAndServe(e.Server(":"+port), 5*time.Second)
 }
 
 func buttonsStateHandler(c *echo.Context) error {
-	response := btns.Clicks()
+	allClicks := btns.Clicks()
+	response := []int{
+		allClicks["0"],
+		allClicks["1"],
+		allClicks["2"],
+	}
 	return c.JSON(http.StatusOK, response)
 }
 

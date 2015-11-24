@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
 	"fmt"
+	"log"
 	"strconv"
 
 	"github.com/tarm/serial"
@@ -34,19 +34,19 @@ func (l *leds) OnClick(button string) {
 	c := &serial.Config{Name: "/dev/ttyAMA0", Baud: 9600}
 	s, err := serial.OpenPort(c)
 	if err != nil {
-	  log.Fatal(err)
+		log.Fatal(err)
 	}
 
 	btnNum, err := strconv.Atoi(button)
 	n, err := s.Write([]byte{byte(btnNum), byte(totalClicks)})
 	if err != nil {
-	  log.Fatal(err)
+		log.Fatal(err)
 	}
 
 	buf := make([]byte, 128)
 	n, err = s.Read(buf)
 	if err != nil {
-	  log.Fatal(err)
+		log.Fatal(err)
 	}
 	log.Printf("Response from arduino: %q", buf[:n])
 
