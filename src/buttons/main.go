@@ -54,7 +54,7 @@ func main() {
 
 	// Start server
 	log.Println("Starting server on port " + port)
-	graceful.ListenAndServe(e.Server(":"+port), 5*time.Second)
+	graceful.ListenAndServe(e.Server(":"+port), 2*time.Second)
 }
 
 func buttonsStateHandler(c *echo.Context) error {
